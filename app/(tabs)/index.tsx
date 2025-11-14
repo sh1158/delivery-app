@@ -1,98 +1,173 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import BestSellerCarousel from "@/components/BestSellerCarousel";
+import CategoriesCarousel from "@/components/CategoriesCarousel";
+import HomeHeader from "@/components/HomeHeader";
+import OffersCarousel from "@/components/OffersCarousel";
+import SectionHeader from "@/components/SectionHeader";
+import { Colors } from "@/constants/theme";
+import { bestSellers, categories, offers } from "@/utils/data";
+import { getGreeting } from "@/utils/greetingsHelper";
+import React, { useRef } from "react";
+import { Animated, StyleSheet, Text, View } from "react-native";
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+  const scrollY = useRef(new Animated.Value(0)).current;
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+  const { greeting, message } = getGreeting();
+
+  const greetingOpacity = scrollY.interpolate({
+    inputRange: [0, 50, 100],
+    outputRange: [1, 0.5, 0],
+    extrapolate: "clamp",
+  });
+
+  const greetingTranslateY = scrollY.interpolate({
+    inputRange: [0, 100],
+    outputRange: [0, -30],
+    extrapolate: "clamp",
+  });
+
+  return (
+    <View style={styles.screen}>
+      <View style={styles.backgroundLayer} />
+
+      <View style={styles.fixedHeader}>
+        <HomeHeader />
+      </View>
+
+      <Animated.View
+        style={[
+          styles.greetingSection,
+          {
+            opacity: greetingOpacity,
+            transform: [{ translateY: greetingTranslateY }],
+          },
+        ]}
+        pointerEvents="none"
+      >
+        <Text style={styles.greeting}>{greeting}</Text>
+        <Text style={styles.subGreeting}>{message}</Text>
+      </Animated.View>
+
+      <Animated.ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: true }
+        )}
+        scrollEventThrottle={16}
+      >
+        <View style={styles.spacer} />
+
+        <View style={styles.whiteCard}>
+          <View>
+            <SectionHeader title="Categories" showViewAll={false} />
+            <CategoriesCarousel
+              categories={categories}
+              onSelectCategory={(cat) => console.log(cat.name)}
+            />
+          </View>
+          <View>
+            <SectionHeader
+              title="Best Sellers"
+              onPressViewAll={() => console.log("View All pressed")}
+            />
+            <BestSellerCarousel
+              items={bestSellers}
+              onSelectItem={(item) => console.log(item.name)}
+            />
+          </View>
+          <View style={{ marginTop: 20 }}>
+            <SectionHeader
+              title="Special Offers"
+              onPressViewAll={() => console.log("View All pressed")}
+            />
+            <OffersCarousel offers={offers} />
+          </View>
+        </View>
+      </Animated.ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  screen: {
+    flex: 1,
+    backgroundColor: "transparent",
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
+  backgroundLayer: {
+    position: "absolute",
+    top: 0,
     left: 0,
-    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    backgroundColor: Colors.primary,
+  },
+  fixedHeader: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 100,
+    paddingHorizontal: 20,
+    paddingTop: 50,
+  },
+  greetingSection: {
+    position: "absolute",
+    top: 110,
+    left: 0,
+    right: 0,
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    backgroundColor: Colors.primary,
+    zIndex: 0,
+  },
+  greeting: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "#fff",
+    marginBottom: 4,
+  },
+  subGreeting: {
+    fontSize: 14,
+    color: "#fff",
+    opacity: 0.9,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+  },
+  spacer: {
+    height: 200,
+  },
+  whiteCard: {
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    // paddingHorizontal: 15,
+    paddingTop: 20,
+    minHeight: "100%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: -4,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  cardsContainer: {
+    gap: 15,
+    paddingBottom: 30,
+  },
+  card: {
+    height: 120,
+    borderRadius: 12,
+    backgroundColor: "#f2f2f2",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
