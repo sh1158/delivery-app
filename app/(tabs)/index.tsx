@@ -2,6 +2,7 @@ import BestSellerCarousel from "@/components/BestSellerCarousel";
 import CategoriesCarousel from "@/components/CategoriesCarousel";
 import HomeHeader from "@/components/HomeHeader";
 import OffersCarousel from "@/components/OffersCarousel";
+import { RecommendedSection } from "@/components/RecommendedSection";
 import SectionHeader from "@/components/SectionHeader";
 import { Colors } from "@/constants/theme";
 import { bestSellers, categories, offers } from "@/utils/data";
@@ -78,12 +79,19 @@ export default function HomeScreen() {
               onSelectItem={(item) => console.log(item.name)}
             />
           </View>
-          <View style={{ marginTop: 20 }}>
+          <View style={{ marginTop: 10 }}>
             <SectionHeader
               title="Special Offers"
               onPressViewAll={() => console.log("View All pressed")}
             />
             <OffersCarousel offers={offers} />
+          </View>
+          <View style={{ marginTop: 10 }}>
+            <SectionHeader
+              title="Recommended for you"
+              onPressViewAll={() => console.log("View All pressed")}
+            />
+            <RecommendedSection />
           </View>
         </View>
       </Animated.ScrollView>
@@ -149,6 +157,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 24,
     // paddingHorizontal: 15,
     paddingTop: 20,
+    paddingBottom: 90,
     minHeight: "100%",
     shadowColor: "#000",
     shadowOffset: {

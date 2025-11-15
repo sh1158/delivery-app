@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 interface BestSellerItem {
-  id: string;
+  id: number;
   name: string;
   price: number;
   image: any;
@@ -30,7 +30,7 @@ export default function BestSellerCarousel({ items, onSelectItem }: Props) {
       data={items}
       horizontal
       showsHorizontalScrollIndicator={false}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.id.toString()}
       contentContainerStyle={styles.container}
       renderItem={({ item }) => (
         <TouchableOpacity

@@ -52,39 +52,83 @@ export const categories = [
 
 export const bestSellers = [
   {
-    id: "1",
+    id: 1,
     name: "Cheese Burger",
     price: 5.99,
+    rating: 4.8,
     image: require("@/assets/food/cheese_burger.jpg"),
   },
   {
-    id: "2",
+    id: 2,
     name: "Pepperoni Pizza",
     price: 8.99,
+    rating: 4.1,
     image: require("@/assets/food/pepperoni_pizza.jpg"),
   },
   {
-    id: "3",
+    id: 3,
     name: "Chocolate Cake",
     price: 4.5,
+    rating: 4.9,
     image: require("@/assets/food/chocolate_cake.jpg"),
   },
   {
-    id: "4",
+    id: 4,
     name: "Coke Drink",
     price: 1.99,
+    rating: 4.6,
     image: require("@/assets/food/coca-cola.jpg"),
   },
   {
-    id: "5",
+    id: 5,
     name: "French Fries",
     price: 2.5,
+    rating: 4.4,
     image: require("@/assets/food/french_fries.jpg"),
   },
 ];
 
 export const offers = [
-  { id: "1", image: require("@/assets/offer/offer_burger.jpg") },
-  { id: "2", image: require("@/assets/offer/offer_drinks.jpg") },
-  { id: "3", image: require("@/assets/offer/offer_meals.jpg") },
+  {
+    id: "1",
+    image: require("@/assets/offer/offer_burger.jpg"),
+    price: 199,
+    rating: 4.6,
+  },
+  {
+    id: "2",
+    image: require("@/assets/offer/offer_drinks.jpg"),
+    price: 199,
+    rating: 4.6,
+  },
+  {
+    id: "3",
+    image: require("@/assets/offer/offer_meals.jpg"),
+    price: 199,
+    rating: 4.6,
+  },
+];
+
+export const recommendedItems = [
+  {
+    id: 1,
+    name: "Chocolate Cake",
+    price: 199,
+    rating: 4.6,
+    image: require("@/assets/food/food1.jpg"),
+  },
+  {
+    id: 2,
+    name: "Mixed Fruits",
+    price: 149,
+    rating: 4.2,
+    image: require("@/assets/food/food2.jpg"),
+  },
+  {
+    id: 3,
+    name: "Tasty Meals",
+    price: 249,
+    rating: 4.8,
+    image: require("@/assets/food/food3.jpg"),
+  },
 ];
