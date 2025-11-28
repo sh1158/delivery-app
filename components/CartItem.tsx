@@ -1,9 +1,11 @@
 import { Colors } from "@/constants/theme";
 import { CartItem as Item, useCartStore } from "@/store/useCartStore";
+import { router } from "expo-router";
 import { Minus, Plus, Trash2 } from "lucide-react-native";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ThemedView } from "./themed-view";
+import { TextP } from "./ui/typography/Text";
 
 interface Props {
   item: Item;
@@ -14,17 +16,23 @@ export default function CartItem({ item }: Props) {
   const decrease = useCartStore((s) => s.decreaseQty);
   const remove = useCartStore((s) => s.removeFromCart);
 
+  const handleProductClick = (item: any) => {
+    router.push({
+      pathname: "/product/[id]",
+      params: { id: item.id.toString() },
+    });
+  };
+
   return (
     <ThemedView style={styles.container}>
-      {/* Image */}
-      <Image source={item.image} style={styles.image} />
+      <TouchableOpacity onPress={() => handleProductClick(item)}>
+        <Image source={item.image} style={styles.image} />
+      </TouchableOpacity>
 
-      {/* Info */}
       <View style={styles.info}>
-        <Text style={styles.name}>{item.name}</Text>
+        <TextP style={styles.bold}>{item.name}</TextP>
         <Text style={styles.price}>₹{item.price}</Text>
 
-        {/* Qty controls */}
         <View style={styles.qtyRow}>
           <TouchableOpacity
             onPress={() => decrease(item.id)}
@@ -73,6 +81,9 @@ const styles = StyleSheet.create({
   info: {
     flex: 1,
     marginLeft: 12,
+  },
+  bold: {
+    fontWeight: "700",
   },
   name: {
     fontSize: 16,

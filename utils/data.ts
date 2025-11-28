@@ -132,3 +132,9 @@ export const recommendedItems = [
     image: require("@/assets/food/food3.jpg"),
   },
 ];
+
+export const profileItems = [
+  { label: "My Orders", path: "/(tabs)/orders" },
+  { label: "My Addresses", path: "/addresse" },
+  { label: "Settings", path: "/settings" },
+];

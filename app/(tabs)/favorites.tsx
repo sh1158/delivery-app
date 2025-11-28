@@ -2,6 +2,7 @@ import ProductList from "@/components/ProductList";
 import Screen from "@/components/Screen";
 import { Header } from "@/components/ui/Header";
 import { useFavoriteStore } from "@/store/useFavoriteStore";
+import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -9,7 +10,10 @@ export default function FavouritesScreen() {
   const favorites = useFavoriteStore((state) => state.favorites);
 
   const handlePressItem = (item: any) => {
-    console.log("Item pressed");
+    router.push({
+      pathname: "/product/[id]",
+      params: { id: item.id.toString() },
+    });
   };
 
   const isEmpty = favorites.length === 0;

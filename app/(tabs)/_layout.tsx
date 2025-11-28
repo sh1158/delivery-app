@@ -2,7 +2,7 @@ import { HapticTab } from "@/components/haptic-tab";
 import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { Tabs } from "expo-router";
-import { Heart, House, ShoppingCart, User } from "lucide-react-native";
+import { Boxes, Heart, House, ShoppingCart, User } from "lucide-react-native";
 import React from "react";
 
 export default function TabLayout() {
@@ -58,6 +58,14 @@ export default function TabLayout() {
         options={{
           title: "Favorites",
           tabBarIcon: ({ color }) => <Heart size={28} color={color} />,
+        }}
+      />
+
+      <Tabs.Screen
+        name="orders"
+        options={{
+          title: "Orders",
+          tabBarIcon: ({ color }) => <Boxes size={28} color={color} />,
         }}
       />
 

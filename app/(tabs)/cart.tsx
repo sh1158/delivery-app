@@ -2,10 +2,11 @@ import CartItem from "@/components/CartItem";
 import Screen from "@/components/Screen";
 import { Button } from "@/components/ui/Button";
 import { Header } from "@/components/ui/Header";
+import { TextP } from "@/components/ui/typography/Text";
 import { useCartStore } from "@/store/useCartStore";
 import { router } from "expo-router";
 import React from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 
 export default function CartScreen() {
   const cart = useCartStore((s) => s.cart);
@@ -21,10 +22,8 @@ export default function CartScreen() {
 
       {isEmpty ? (
         <View style={styles.emptyContainer}>
-          <Text style={styles.emptyText}>Your cart is empty 🛒</Text>
-          <Text style={styles.emptySubText}>
-            Add items to your cart and come back!
-          </Text>
+          <TextP style={styles.bold}>Your cart is empty 🛒</TextP>
+          <TextP>Add items to your cart and come back!</TextP>
         </View>
       ) : (
         <FlatList
@@ -35,8 +34,8 @@ export default function CartScreen() {
           ListFooterComponent={
             <View style={styles.bottomBar}>
               <View style={styles.totalRow}>
-                <Text style={styles.totalLabel}>Total</Text>
-                <Text style={styles.totalAmount}>₹{total.toFixed(2)}</Text>
+                <TextP style={styles.bold}>Total</TextP>
+                <TextP style={styles.bold}>₹{total.toFixed(2)}</TextP>
               </View>
 
               <View style={styles.buttonRow}>
@@ -70,6 +69,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
+  },
+
+  bold: {
+    fontWeight: 700,
   },
   emptyText: {
     fontSize: 20,

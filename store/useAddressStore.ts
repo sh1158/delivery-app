@@ -1,5 +1,5 @@
 import { Address } from "@/types/Address";
-import { nanoid } from "nanoid";
+import { nanoid } from "nanoid/non-secure";
 import { create } from "zustand";
 
 interface AddressState {
@@ -14,11 +14,13 @@ export const useAddressStore = create<AddressState>((set) => ({
   selectedAddressId: null,
 
   addAddress: (address) =>
-    set((state) => ({
-      addresses: [...state.addresses, { ...address, id: nanoid() }],
-      selectedAddressId:
-        state.selectedAddressId ?? state.addresses[0]?.id ?? null,
-    })),
+    set((state) => {
+      const newAddress = { ...address, id: nanoid() };
+      return {
+        addresses: [...state.addresses, newAddress],
+        selectedAddressId: newAddress.id,
+      };
+    }),
 
   selectAddress: (id) => set({ selectedAddressId: id }),
 }));
