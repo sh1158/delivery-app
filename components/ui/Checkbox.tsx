@@ -1,6 +1,7 @@
 import { Colors } from "@/constants/theme";
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import { TextP } from "./typography/Text";
 
 interface CheckboxProps {
   value: boolean;
@@ -15,7 +16,7 @@ export function Checkbox({ value, onChange, label }: CheckboxProps) {
         {value && <Text style={styles.tick}>✓</Text>}
       </View>
       <View style={{ marginLeft: 8 }}>
-        {typeof label === "string" ? <Text>{label}</Text> : label}
+        <TextP>{label}</TextP>
       </View>
     </Pressable>
   );

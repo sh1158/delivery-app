@@ -1,5 +1,6 @@
+import { useThemeColor } from "@/hooks/use-theme-color";
 import React, { useRef, useState } from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, useColorScheme, View } from "react-native";
 
 interface OtpInputProps {
   length?: number;
@@ -9,6 +10,10 @@ interface OtpInputProps {
 export default function OtpInput({ length = 4, onChange }: OtpInputProps) {
   const [otp, setOtp] = useState(Array(length).fill(""));
   const inputsRef = useRef<TextInput[]>([]);
+
+  const inputBgColor = useThemeColor({}, "inputBackground");
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === "dark";
 
   const handleChange = (text: string, index: number) => {
     if (/^\d*$/.test(text)) {
@@ -40,7 +45,13 @@ export default function OtpInput({ length = 4, onChange }: OtpInputProps) {
           maxLength={1}
           style={[
             styles.input,
-            index !== length - 1 && { marginRight: 10 }, // spacing between inputs
+            index !== length - 1 && {
+              marginRight: 10,
+            },
+            {
+              backgroundColor: inputBgColor,
+              color: isDark ? "#ffff" : "0f0f0fff",
+            },
           ]}
           textAlign="center"
         />
@@ -59,9 +70,8 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderWidth: 1,
-    borderColor: "#D0D0D0",
     borderRadius: 12,
-    fontSize: 24,
-    backgroundColor: "#fff",
+    fontSize: 18,
+    fontFamily: "Inter_600SemiBold",
   },
 });

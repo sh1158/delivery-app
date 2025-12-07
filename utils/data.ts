@@ -134,7 +134,6 @@ export const recommendedItems = [
 ];
 
 export const profileItems = [
-  { label: "My Orders", path: "/(tabs)/orders" },
-  { label: "My Addresses", path: "/addresse" },
-  { label: "Settings", path: "/settings" },
+  { label: "My Orders", path: "/(tabs)/orders" as const },
+  { label: "My Addresses", path: "/addresses" as const },
 ];

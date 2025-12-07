@@ -19,6 +19,9 @@ export const Colors = {
     tabIconDefault: "#687076",
     tabIconSelected: primaryColor,
     tabBackground: "white",
+    inputBackground: "#fff",
+    inputBorder: "#D0D0D0",
+    inputPlaceholder: "#9E9E9E",
   },
   dark: {
     text: "#ECEDEE",
@@ -28,6 +31,9 @@ export const Colors = {
     tabIconDefault: "#9BA1A6",
     tabIconSelected: primaryColor,
     tabBackground: "#2d3234ff",
+    inputBackground: "#1a1a1a",
+    inputBorder: "#333333",
+    inputPlaceholder: "#666666",
   },
   primary: "#a70000",
   secondary: "#0a7ea4",
@@ -35,26 +41,21 @@ export const Colors = {
 
 export const Fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: "system-ui",
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: "ui-serif",
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: "ui-rounded",
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: "ui-monospace",
+    heading: "NunitoSans_700Bold",
+    subheading: "NunitoSans_600SemiBold",
+    body: "Inter_400Regular",
+    bodySemiBold: "Inter_600SemiBold",
+  },
+  android: {
+    heading: "NunitoSans_700Bold",
+    subheading: "NunitoSans_600SemiBold",
+    body: "Inter_400Regular",
+    bodySemiBold: "Inter_600SemiBold",
   },
   default: {
-    sans: "normal",
-    serif: "serif",
-    rounded: "normal",
-    mono: "monospace",
-  },
-  web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded:
-      "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+    heading: "NunitoSans_700Bold",
+    subheading: "NunitoSans_600SemiBold",
+    body: "Inter_400Regular",
+    bodySemiBold: "Inter_600SemiBold",
   },
 });

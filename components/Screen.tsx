@@ -1,3 +1,4 @@
+import { useThemeColor } from "@/hooks/use-theme-color";
 import React, { ReactNode } from "react";
 import {
   KeyboardAvoidingView,
@@ -26,11 +27,13 @@ export default function Screen({
   children,
   style,
   scroll = true,
-  backgroundColor = "white",
+  backgroundColor,
   footer,
   noPaddingTop = false,
 }: ScreenProps) {
   const insets = useSafeAreaInsets();
+  const defaultBgColor = useThemeColor({}, "background");
+  const finalBgColor = backgroundColor || defaultBgColor;
 
   const contentStyle = [
     styles.container,
@@ -41,7 +44,7 @@ export default function Screen({
   if (scroll) {
     return (
       <SafeAreaView
-        style={[styles.safeArea, { backgroundColor }]}
+        style={[styles.safeArea, { backgroundColor: finalBgColor }]}
         edges={["top"]}
       >
         <KeyboardAvoidingView
@@ -60,7 +63,9 @@ export default function Screen({
 
         {footer && (
           <SafeAreaView edges={["bottom"]} style={styles.footerContainer}>
-            <View style={styles.footer}>{footer}</View>
+            <View style={[styles.footer, { backgroundColor: finalBgColor }]}>
+              {footer}
+            </View>
           </SafeAreaView>
         )}
       </SafeAreaView>
@@ -69,7 +74,7 @@ export default function Screen({
 
   return (
     <SafeAreaView
-      style={[styles.safeArea, { backgroundColor }]}
+      style={[styles.safeArea, { backgroundColor: finalBgColor }]}
       edges={["top"]}
     >
       <KeyboardAvoidingView
@@ -81,7 +86,9 @@ export default function Screen({
 
       {footer && (
         <SafeAreaView edges={["bottom"]} style={styles.footerContainer}>
-          <View style={styles.footer}>{footer}</View>
+          <View style={[styles.footer, { backgroundColor: finalBgColor }]}>
+            {footer}
+          </View>
         </SafeAreaView>
       )}
     </SafeAreaView>
@@ -101,7 +108,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: "white",
   },
   footer: {
     alignItems: "center",

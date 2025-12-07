@@ -1,14 +1,15 @@
-import BestSellerCarousel from "@/components/BestSellerCarousel";
-import CategoriesCarousel from "@/components/CategoriesCarousel";
+import BestSellersSection from "@/components/BestSellers/BestSellersSection";
+import CategoriesSection from "@/components/Categories/CategoriesSection";
 import HomeHeader from "@/components/HomeHeader";
-import OffersCarousel from "@/components/OffersCarousel";
-import { RecommendedSection } from "@/components/RecommendedSection";
+import OffersSection from "@/components/Offers/OffersSection";
+import { RecommendedSection } from "@/components/Recommended/RecommendedSection";
 import SectionHeader from "@/components/SectionHeader";
+import { ThemedView } from "@/components/themed-view";
+import { TextH2, TextP } from "@/components/ui/typography/Text";
 import { Colors } from "@/constants/theme";
-import { bestSellers, categories, offers } from "@/utils/data";
 import { getGreeting } from "@/utils/greetingsHelper";
 import React, { useRef } from "react";
-import { Animated, StyleSheet, Text, View } from "react-native";
+import { Animated, StyleSheet, View } from "react-native";
 
 export default function HomeScreen() {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -45,8 +46,8 @@ export default function HomeScreen() {
         ]}
         pointerEvents="none"
       >
-        <Text style={styles.greeting}>{greeting}</Text>
-        <Text style={styles.subGreeting}>{message}</Text>
+        <TextH2 style={styles.greeting}>{greeting}</TextH2>
+        <TextP style={styles.subGreeting}>{message}</TextP>
       </Animated.View>
 
       <Animated.ScrollView
@@ -61,39 +62,15 @@ export default function HomeScreen() {
       >
         <View style={styles.spacer} />
 
-        <View style={styles.whiteCard}>
+        <ThemedView style={styles.whiteCard}>
           <View>
             <SectionHeader title="Categories" showViewAll={false} />
-            <CategoriesCarousel
-              categories={categories}
-              onSelectCategory={(cat) => console.log(cat.name)}
-            />
+            <CategoriesSection />
           </View>
-          <View>
-            <SectionHeader
-              title="Best Sellers"
-              onPressViewAll={() => console.log("View All pressed")}
-            />
-            <BestSellerCarousel
-              items={bestSellers}
-              onSelectItem={(item) => console.log(item.name)}
-            />
-          </View>
-          <View style={{ marginTop: 10 }}>
-            <SectionHeader
-              title="Special Offers"
-              onPressViewAll={() => console.log("View All pressed")}
-            />
-            <OffersCarousel offers={offers} />
-          </View>
-          <View style={{ marginTop: 10 }}>
-            <SectionHeader
-              title="Recommended for you"
-              onPressViewAll={() => console.log("View All pressed")}
-            />
-            <RecommendedSection />
-          </View>
-        </View>
+          <BestSellersSection />
+          <OffersSection />
+          <RecommendedSection />
+        </ThemedView>
       </Animated.ScrollView>
     </View>
   );
@@ -123,7 +100,7 @@ const styles = StyleSheet.create({
   },
   greetingSection: {
     position: "absolute",
-    top: 110,
+    top: 105,
     left: 0,
     right: 0,
     paddingHorizontal: 20,
@@ -133,9 +110,8 @@ const styles = StyleSheet.create({
   },
   greeting: {
     fontSize: 32,
-    fontWeight: "bold",
     color: "#fff",
-    marginBottom: 4,
+    fontFamily: "PlayfairDisplay_700Bold",
   },
   subGreeting: {
     fontSize: 14,
@@ -152,7 +128,7 @@ const styles = StyleSheet.create({
     height: 200,
   },
   whiteCard: {
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     // paddingHorizontal: 15,

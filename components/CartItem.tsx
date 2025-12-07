@@ -3,9 +3,15 @@ import { CartItem as Item, useCartStore } from "@/store/useCartStore";
 import { router } from "expo-router";
 import { Minus, Plus, Trash2 } from "lucide-react-native";
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from "react-native";
 import { ThemedView } from "./themed-view";
-import { TextP } from "./ui/typography/Text";
+import { TextH4, TextP } from "./ui/typography/Text";
 
 interface Props {
   item: Item;
@@ -16,6 +22,9 @@ export default function CartItem({ item }: Props) {
   const decrease = useCartStore((s) => s.decreaseQty);
   const remove = useCartStore((s) => s.removeFromCart);
 
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === "dark";
+
   const handleProductClick = (item: any) => {
     router.push({
       pathname: "/product/[id]",
@@ -24,14 +33,19 @@ export default function CartItem({ item }: Props) {
   };
 
   return (
-    <ThemedView style={styles.container}>
+    <ThemedView
+      style={[
+        styles.container,
+        { backgroundColor: isDark ? "#333333" : "#ffff" },
+      ]}
+    >
       <TouchableOpacity onPress={() => handleProductClick(item)}>
         <Image source={item.image} style={styles.image} />
       </TouchableOpacity>
 
       <View style={styles.info}>
-        <TextP style={styles.bold}>{item.name}</TextP>
-        <Text style={styles.price}>₹{item.price}</Text>
+        <TextH4 style={{ fontSize: 15 }}>{item.name}</TextH4>
+        <TextP style={styles.price}>₹{item.price}</TextP>
 
         <View style={styles.qtyRow}>
           <TouchableOpacity
@@ -41,7 +55,7 @@ export default function CartItem({ item }: Props) {
             <Minus size={16} color="#fff" />
           </TouchableOpacity>
 
-          <Text style={styles.qty}>{item.quantity}</Text>
+          <TextP style={styles.qty}>{item.quantity}</TextP>
 
           <TouchableOpacity
             onPress={() => increase(item.id)}
@@ -52,7 +66,6 @@ export default function CartItem({ item }: Props) {
         </View>
       </View>
 
-      {/* Delete */}
       <TouchableOpacity onPress={() => remove(item.id)}>
         <Trash2 size={20} color="red" />
       </TouchableOpacity>
@@ -65,7 +78,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 12,
     margin: 6,
-    backgroundColor: "#fff",
     borderRadius: 12,
     alignItems: "center",
     elevation: 3,
@@ -74,26 +86,23 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   image: {
-    width: 70,
-    height: 70,
+    width: 76,
+    height: 76,
     borderRadius: 10,
   },
   info: {
     flex: 1,
     marginLeft: 12,
   },
-  bold: {
-    fontWeight: "700",
-  },
+
   name: {
     fontSize: 16,
     fontWeight: "600",
-    marginBottom: 4,
   },
   price: {
-    fontSize: 14,
+    fontSize: 12,
     color: Colors.primary,
-    marginBottom: 8,
+    marginBottom: 5,
   },
   qtyRow: {
     flexDirection: "row",

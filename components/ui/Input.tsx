@@ -1,3 +1,4 @@
+import { useThemeColor } from "@/hooks/use-theme-color";
 import React from "react";
 import { Controller } from "react-hook-form";
 import {
@@ -28,20 +29,32 @@ export default function Input({
   keyboardType,
   rules,
 }: InputProps) {
+  const textColor = useThemeColor({}, "text");
+  const inputBgColor = useThemeColor({}, "inputBackground");
+  const borderColor = useThemeColor({}, "inputBorder");
+  const placeholderColor = useThemeColor({}, "inputPlaceholder");
+
   return (
     <Controller
       control={control}
       name={name}
-      rules={rules} // pass rules here
+      rules={rules}
       render={({
         field: { onChange, onBlur, value },
         fieldState: { error },
       }) => (
         <View style={style}>
           <TextInput
-            style={[styles.input, error && styles.errorBorder]}
+            style={[
+              styles.input,
+              {
+                backgroundColor: inputBgColor,
+                borderColor: error ? "#ff4d4d" : borderColor,
+                color: textColor,
+              },
+            ]}
             placeholder={placeholder}
-            placeholderTextColor="#9E9E9E"
+            placeholderTextColor={placeholderColor}
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
@@ -60,14 +73,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 52,
     borderWidth: 1,
-    borderColor: "#D0D0D0",
     borderRadius: 12,
     paddingHorizontal: 16,
-    fontSize: 16,
-    backgroundColor: "#fff",
-  },
-  errorBorder: {
-    borderColor: "#ff4d4d",
+    fontSize: 13,
+    fontFamily: "Inter_400Regular",
   },
   errorText: {
     color: "#ff4d4d",

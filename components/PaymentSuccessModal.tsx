@@ -1,6 +1,7 @@
 import LottieView from "lottie-react-native";
 import React from "react";
 import { Modal, StyleSheet, View } from "react-native";
+import { ThemedView } from "./themed-view";
 import { Button } from "./ui/Button";
 import { TextH3, TextP } from "./ui/typography/Text";
 
@@ -20,7 +21,7 @@ export default function PaymentSuccessModal({
   return (
     <Modal transparent visible={visible} animationType="fade">
       <View style={styles.overlay}>
-        <View style={styles.container}>
+        <ThemedView style={styles.container}>
           <LottieView
             source={require("../assets/lottie/success.json")}
             autoPlay
@@ -30,7 +31,7 @@ export default function PaymentSuccessModal({
           <TextH3>{message}</TextH3>
           <TextP>{description}</TextP>
           <Button label="Close" onPress={onClose} style={styles.btn} />
-        </View>
+        </ThemedView>
       </View>
     </Modal>
   );
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "80%",
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     borderRadius: 15,
     alignItems: "center",
     padding: 20,

@@ -1,14 +1,16 @@
+import { useThemeColor } from "@/hooks/use-theme-color";
 import { router } from "expo-router";
 import { CircleArrowLeft } from "lucide-react-native";
 import React, { ReactNode } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { ThemedView } from "../themed-view";
+import { TextH4 } from "./typography/Text";
 
 interface HeaderProps {
   title: string;
-  leftIcon?: ReactNode; // optional custom left icon
-  rightIcon?: ReactNode; // optional right icon
-  onLeftPress?: () => void; // override left action
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+  onLeftPress?: () => void;
   style?: object;
 }
 
@@ -19,6 +21,9 @@ export function Header({
   onLeftPress,
   style,
 }: HeaderProps) {
+  const textColor = useThemeColor({}, "text");
+  const iconColor = useThemeColor({}, "icon");
+
   const handleLeftPress = () => {
     if (onLeftPress) {
       onLeftPress();
@@ -30,10 +35,10 @@ export function Header({
   return (
     <ThemedView style={[styles.container, style]}>
       <Pressable onPress={handleLeftPress} style={styles.leftIcon}>
-        {leftIcon ? leftIcon : <CircleArrowLeft size={35} />}
+        {leftIcon ? leftIcon : <CircleArrowLeft size={35} color={iconColor} />}
       </Pressable>
 
-      <Text style={styles.title}>{title}</Text>
+      <TextH4 style={[styles.title, { color: textColor }]}>{title}</TextH4>
 
       <View style={styles.rightIcon}>{rightIcon || null}</View>
     </ThemedView>
@@ -54,16 +59,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  backText: {
-    fontSize: 20,
-    color: "#0a7ea4", // primary color
-  },
   title: {
     flex: 1,
     fontSize: 18,
-    marginLeft: 15,
-    fontWeight: "600",
+    marginLeft: 13,
     textAlign: "left",
-    color: "#000",
   },
 });

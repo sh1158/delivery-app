@@ -1,6 +1,6 @@
 import React from "react";
 import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
-import { TextP } from "./ui/typography/Text";
+import { TextH4 } from "../ui/typography/Text";
 
 interface Category {
   id: string;
@@ -35,7 +35,7 @@ export default function CategoriesCarousel({
           >
             <item.icon size={32} color="#fff" />
           </View>
-          <TextP>{item.name}</TextP>
+          <TextH4 style={{ fontSize: 14 }}>{item.name}</TextH4>
         </TouchableOpacity>
       )}
     />
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     width: 80,
     marginRight: 10,
     borderRadius: 50,
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     alignItems: "center",
     paddingVertical: 10,
   },

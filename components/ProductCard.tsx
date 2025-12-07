@@ -4,6 +4,7 @@ import { Product } from "@/types/Product";
 import { Heart } from "lucide-react-native";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { TextH4 } from "./ui/typography/Text";
 
 type ProductCardProps = {
   item: Product;
@@ -11,7 +12,6 @@ type ProductCardProps = {
 };
 
 export default function ProductCard({ item, onPress }: ProductCardProps) {
-  // subscribe to re-render correctly
   const liked = useFavoriteStore((state) => state.isFavorite(item.id));
   const toggleFavorite = useFavoriteStore((state) => state.toggleFavorite);
 
@@ -36,9 +36,8 @@ export default function ProductCard({ item, onPress }: ProductCardProps) {
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.name}>{item.name}</Text>
+      <TextH4 style={styles.name}>{item.name}</TextH4>
 
-      {/* Rating */}
       <Text style={styles.rating}>⭐ {item.rating}</Text>
     </TouchableOpacity>
   );

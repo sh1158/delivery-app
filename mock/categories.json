@@ -1,0 +1,7 @@
+[
+  { "id": "1", "name": "Snacks", "icon": "Cookie", "bgColor": "#F9A826" },
+  { "id": "2", "name": "Drinks", "icon": "Coffee", "bgColor": "#47B5FF" },
+  { "id": "3", "name": "Desserts", "icon": "IceCream", "bgColor": "#FF6B6B" },
+  { "id": "4", "name": "Fruits", "icon": "Apple", "bgColor": "#4CD964" },
+  { "id": "5", "name": "Meals", "icon": "Hamburger", "bgColor": "#FF9F1C" }
+]

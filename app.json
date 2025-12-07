@@ -1,15 +1,17 @@
 {
   "expo": {
-    "name": "delivery-app",
+    "name": "Cravery",
     "slug": "delivery-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "deliveryapp",
+    "scheme": "cravery",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.devverse.cravery"
     },
     "android": {
       "adaptiveIcon": {
@@ -18,7 +20,8 @@
         "backgroundImage": "./assets/images/android-icon-background.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.devverse.cravery"
     },
     "web": {
       "output": "static",
@@ -32,16 +35,23 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
+          "backgroundColor": "#ffff",
           "dark": {
-            "backgroundColor": "#000000"
+            "backgroundColor": "#0a0a0aff"
           }
         }
-      ]
+      ],
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "ec95056a-e99e-4cac-8d87-84b38e8b246c"
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 import { Search } from "lucide-react-native";
 import React from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, useColorScheme } from "react-native";
 import { ThemedView } from "./themed-view";
 
 interface HomeHeaderProps {
@@ -10,22 +10,21 @@ interface HomeHeaderProps {
   onSearchChange?: (text: string) => void;
 }
 
-export default function HomeHeader({
-  onCartPress,
-  onProfilePress,
-  onNotificationPress,
-  onSearchChange,
-}: HomeHeaderProps) {
+export default function HomeHeader({ onSearchChange }: HomeHeaderProps) {
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === "dark";
+
   return (
     <ThemedView style={styles.container}>
-      <View style={styles.searchContainer}>
+      <ThemedView style={styles.searchContainer}>
         <Search size={20} color="#666" style={{ marginRight: 8 }} />
         <TextInput
           placeholder="Search..."
           style={styles.searchInput}
           onChangeText={onSearchChange}
+          placeholderTextColor={isDark ? "#888888" : "#999999"}
         />
-      </View>
+      </ThemedView>
 
       {/* <View style={styles.iconContainer}>
         <Pressable onPress={onNotificationPress} style={styles.iconButton}>
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#F1F1F1",
+    // backgroundColor: "#F1F1F1",
     borderRadius: 12,
     paddingHorizontal: 10,
     height: 40,

@@ -1,4 +1,5 @@
 import Screen from "@/components/Screen";
+import { ThemedView } from "@/components/themed-view";
 import { Button } from "@/components/ui/Button";
 import { Header } from "@/components/ui/Header";
 import { TextH4, TextP } from "@/components/ui/typography/Text";
@@ -6,11 +7,14 @@ import { useOrderStore } from "@/store/useOrderStore";
 import { formatDateTime } from "@/utils/formatDate";
 import { router, useLocalSearchParams } from "expo-router";
 import React from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, useColorScheme, View } from "react-native";
 
 export default function OrderDetailsScreen() {
   const { id } = useLocalSearchParams();
   const order = useOrderStore((s) => s.getOrderById(id as string));
+
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === "dark";
 
   if (!order) {
     return (
@@ -32,7 +36,12 @@ export default function OrderDetailsScreen() {
     <Screen noPaddingTop scroll={false}>
       <Header title="Order Details" />
 
-      <View style={styles.card}>
+      <ThemedView
+        style={[
+          styles.card,
+          { backgroundColor: isDark ? "#333333" : "#f5f3f3ff" },
+        ]}
+      >
         <TextH4 style={styles.mainHead}>Order Information</TextH4>
 
         <View style={styles.row}>
@@ -49,9 +58,14 @@ export default function OrderDetailsScreen() {
           <TextP>Order Date</TextP>
           <TextP>{formatDateTime(order.createdAt)}</TextP>
         </View>
-      </View>
+      </ThemedView>
 
-      <View style={styles.card}>
+      <ThemedView
+        style={[
+          styles.card,
+          { backgroundColor: isDark ? "#333333" : "#f5f3f3ff" },
+        ]}
+      >
         <TextH4 style={styles.mainHead}>Items</TextH4>
 
         <FlatList
@@ -70,10 +84,10 @@ export default function OrderDetailsScreen() {
         />
 
         <View style={styles.totalRow}>
-          <TextP style={{ fontWeight: "700" }}>Total</TextP>
-          <TextP style={{ fontWeight: "700" }}>₹{total?.toFixed(2)}</TextP>
+          <TextH4 style={{ fontSize: 15 }}>Total</TextH4>
+          <TextH4 style={{ fontSize: 15 }}>₹{total?.toFixed(2)}</TextH4>
         </View>
-      </View>
+      </ThemedView>
 
       <Button
         label="Back to Orders"
@@ -101,10 +115,7 @@ const styles = StyleSheet.create({
   card: {
     padding: 15,
     marginTop: 15,
-    backgroundColor: "#fff",
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "#eee",
   },
 
   row: {
@@ -122,7 +133,6 @@ const styles = StyleSheet.create({
   itemPrice: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#444",
   },
 
   totalRow: {

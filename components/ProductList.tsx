@@ -11,7 +11,7 @@ interface ProductListProps {
 
 export default function ProductList({ items, onPressItem }: ProductListProps) {
   return (
-    <ThemedView>
+    <ThemedView style={{ paddingHorizontal: 10 }}>
       <View style={styles.container}>
         <FlatList
           data={items}

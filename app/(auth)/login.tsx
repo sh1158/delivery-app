@@ -24,7 +24,7 @@ export default function Login() {
   };
 
   const footerContent = (
-    <TextP>
+    <TextP style={{ fontSize: 14, lineHeight: 20 }}>
       New to this app?{" "}
       <TextLink onPress={() => router.push("/signUp")}>Register</TextLink>
     </TextP>
@@ -46,7 +46,7 @@ export default function Login() {
         Welcome Back 👋
       </TextH1>
 
-      <TextP style={{ marginBottom: 30, color: "#666", textAlign: "center" }}>
+      <TextP style={{ marginBottom: 30, textAlign: "center" }}>
         Please log in to continue
       </TextP>
 

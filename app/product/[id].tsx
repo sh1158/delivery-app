@@ -1,6 +1,7 @@
 import Screen from "@/components/Screen";
 import { Button } from "@/components/ui/Button";
 import { Header } from "@/components/ui/Header";
+import { TextH4, TextP } from "@/components/ui/typography/Text";
 import { Colors } from "@/constants/theme";
 import { useCartStore } from "@/store/useCartStore";
 import { useFavoriteStore } from "@/store/useFavoriteStore";
@@ -68,15 +69,15 @@ export default function ProductDetailsScreen() {
         </View>
 
         <View style={styles.details}>
-          <Text style={styles.title}>{product.name}</Text>
+          <TextH4>{product.name}</TextH4>
           <Text style={styles.rating}>⭐ {product.rating}</Text>
 
-          <Text style={styles.sectionTitle}>Description</Text>
-          <Text style={styles.desc}>
+          <TextH4>Description</TextH4>
+          <TextP style={styles.desc}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             High-quality premium product with excellent design and long-lasting
             durability.
-          </Text>
+          </TextP>
 
           <Button label="Add to cart" onPress={handleAddToCart} />
         </View>
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
   imageWrapper: {
     width: "100%",
     height: 350,
-    backgroundColor: "#eee",
+    // backgroundColor: "#eee",
     position: "relative",
     overflow: "hidden",
     borderRadius: 15,
@@ -141,9 +142,9 @@ const styles = StyleSheet.create({
   },
 
   rating: {
-    fontSize: 14,
+    fontSize: 17,
     color: "#666",
-    marginBottom: 20,
+    marginBottom: 10,
   },
 
   sectionTitle: {

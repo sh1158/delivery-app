@@ -1,30 +1,40 @@
+import CartSkeleton from "@/components/Cart/CartSkeleton";
 import CartItem from "@/components/CartItem";
 import Screen from "@/components/Screen";
+import { ThemedView } from "@/components/themed-view";
 import { Button } from "@/components/ui/Button";
 import { Header } from "@/components/ui/Header";
-import { TextP } from "@/components/ui/typography/Text";
+import { TextH4, TextP } from "@/components/ui/typography/Text";
 import { useCartStore } from "@/store/useCartStore";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 
 export default function CartScreen() {
   const cart = useCartStore((s) => s.cart);
   const clearCart = useCartStore((s) => s.clearCart);
-
   const isEmpty = cart.length === 0;
-
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const [loading, setLoading] = React.useState(true);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setLoading(true);
+      const timer = setTimeout(() => setLoading(false), 400);
+      return () => clearTimeout(timer);
+    }, [])
+  );
 
   return (
     <Screen noPaddingTop scroll={false}>
       <Header title="Cart" />
-
-      {isEmpty ? (
-        <View style={styles.emptyContainer}>
-          <TextP style={styles.bold}>Your cart is empty 🛒</TextP>
+      {loading ? (
+        <CartSkeleton />
+      ) : isEmpty ? (
+        <ThemedView style={styles.emptyContainer}>
+          <TextH4>Your cart is empty 🛒</TextH4>
           <TextP>Add items to your cart and come back!</TextP>
-        </View>
+        </ThemedView>
       ) : (
         <FlatList
           data={cart}
@@ -32,12 +42,11 @@ export default function CartScreen() {
           renderItem={({ item }) => <CartItem item={item} />}
           contentContainerStyle={{ paddingBottom: 20 }}
           ListFooterComponent={
-            <View style={styles.bottomBar}>
+            <ThemedView style={styles.bottomBar}>
               <View style={styles.totalRow}>
-                <TextP style={styles.bold}>Total</TextP>
-                <TextP style={styles.bold}>₹{total.toFixed(2)}</TextP>
+                <TextH4 style={styles.bold}>Total</TextH4>
+                <TextH4 style={styles.bold}>₹{total.toFixed(2)}</TextH4>
               </View>
-
               <View style={styles.buttonRow}>
                 <Button
                   label="Clear Cart"
@@ -51,7 +60,7 @@ export default function CartScreen() {
                   style={styles.rightButton}
                 />
               </View>
-            </View>
+            </ThemedView>
           }
         />
       )}
@@ -71,9 +80,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 
-  bold: {
-    fontWeight: 700,
-  },
   emptyText: {
     fontSize: 20,
     fontWeight: "600",
@@ -88,11 +94,13 @@ const styles = StyleSheet.create({
   bottomBar: {
     paddingTop: 10,
     marginTop: 10,
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     borderTopWidth: 1,
     borderColor: "#ddd",
   },
-
+  bold: {
+    fontSize: 15,
+  },
   totalRow: {
     flexDirection: "row",
     justifyContent: "space-between",

@@ -1,5 +1,6 @@
 import Avatar from "@/components/Avatar";
 import Screen from "@/components/Screen";
+import { ThemedView } from "@/components/themed-view";
 import { Button } from "@/components/ui/Button";
 import { Header } from "@/components/ui/Header";
 import { TextH3, TextH4, TextP } from "@/components/ui/typography/Text";
@@ -7,20 +8,33 @@ import { profileItems } from "@/utils/data";
 import { router } from "expo-router";
 import { ChevronRight } from "lucide-react-native";
 import React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from "react-native";
 
 export default function ProfileScreen() {
   const user = {
-    name: "Sreehari",
-    email: "sreehari@example.com",
-    phone: "+91 9876543210",
+    name: "Username",
+    email: "username@example.com",
+    phone: "+91 987654321",
   };
+
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === "dark";
 
   return (
     <Screen noPaddingTop>
       <Header title="Profile" />
 
-      <View style={styles.card}>
+      <ThemedView
+        style={[
+          styles.card,
+          { backgroundColor: isDark ? "#333333" : "#f5f3f3ff" },
+        ]}
+      >
         <View>
           <TextH3>{user.name}</TextH3>
           <TextP>{user.email}</TextP>
@@ -28,7 +42,7 @@ export default function ProfileScreen() {
         </View>
 
         <Avatar name={user.name} size={70} />
-      </View>
+      </ThemedView>
 
       <View style={styles.section}>
         <TextH4>Account</TextH4>
@@ -60,10 +74,7 @@ const styles = StyleSheet.create({
   card: {
     padding: 18,
     marginTop: 10,
-    backgroundColor: "#fff",
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "#eee",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

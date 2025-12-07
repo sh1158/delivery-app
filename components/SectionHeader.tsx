@@ -1,6 +1,7 @@
 import { ChevronRight } from "lucide-react-native";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { TextH4, TextP } from "./ui/typography/Text";
 
 interface Props {
   title: string;
@@ -15,10 +16,10 @@ export default function SectionHeader({
 }: Props) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+      <TextH4>{title}</TextH4>
       {showViewAll && (
         <TouchableOpacity style={styles.viewAll} onPress={onPressViewAll}>
-          <Text style={styles.viewAllText}>View All</Text>
+          <TextP style={styles.viewAllText}>View All</TextP>
           <ChevronRight size={16} color="#000" />
         </TouchableOpacity>
       )}
@@ -37,7 +38,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: "600",
   },
   viewAll: {
     flexDirection: "row",
@@ -47,6 +47,5 @@ const styles = StyleSheet.create({
   viewAllText: {
     fontSize: 14,
     fontWeight: "500",
-    color: "#888",
   },
 });

@@ -1,4 +1,4 @@
-import mapAnimation from "@/assets/lottie/map.json";
+import handOver from "@/assets/lottie/handover.json";
 import Screen from "@/components/Screen";
 import { ThemedText } from "@/components/themed-text";
 import { Button } from "@/components/ui/Button";
@@ -33,7 +33,7 @@ export default function SignUp() {
   };
 
   const footerContent = (
-    <TextP>
+    <TextP style={{ fontSize: 14, lineHeight: 20 }}>
       Already have an account?{" "}
       <TextLink onPress={() => router.push("/login")}>Login</TextLink>
     </TextP>
@@ -42,7 +42,7 @@ export default function SignUp() {
   return (
     <Screen footer={footerContent}>
       <LottieView
-        source={mapAnimation}
+        source={handOver}
         autoPlay
         loop
         style={{
@@ -94,7 +94,7 @@ export default function SignUp() {
         value={agreed}
         onChange={setAgreed}
         label={
-          <ThemedText>
+          <ThemedText style={{ fontSize: 14 }}>
             By continuing, you agree to{" "}
             <TextLink onPress={() => console.log("Terms")}>
               Terms of Use

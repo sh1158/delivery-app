@@ -1,3 +1,4 @@
+import { useThemeColor } from "@/hooks/use-theme-color";
 import { Eye, EyeOff } from "lucide-react-native";
 import React, { useState } from "react";
 import { Controller } from "react-hook-form";
@@ -12,6 +13,12 @@ import {
 export default function PasswordInput({ name, control, placeholder }: any) {
   const [show, setShow] = useState(false);
 
+  const textColor = useThemeColor({}, "text");
+  const inputBgColor = useThemeColor({}, "inputBackground");
+  const borderColor = useThemeColor({}, "inputBorder");
+  const placeholderColor = useThemeColor({}, "inputPlaceholder");
+  const iconColor = useThemeColor({}, "icon");
+
   return (
     <Controller
       control={control}
@@ -21,11 +28,19 @@ export default function PasswordInput({ name, control, placeholder }: any) {
         fieldState: { error },
       }) => (
         <View>
-          <View style={[styles.inputWrapper, error && styles.errorBorder]}>
+          <View
+            style={[
+              styles.inputWrapper,
+              {
+                backgroundColor: inputBgColor,
+                borderColor: error ? "#ff4d4d" : borderColor,
+              },
+            ]}
+          >
             <TextInput
-              style={styles.input}
+              style={[styles.input, { color: textColor }]}
               placeholder={placeholder}
-              placeholderTextColor="#9E9E9E"
+              placeholderTextColor={placeholderColor}
               secureTextEntry={!show}
               onBlur={onBlur}
               onChangeText={onChange}
@@ -33,7 +48,11 @@ export default function PasswordInput({ name, control, placeholder }: any) {
             />
 
             <TouchableOpacity onPress={() => setShow((s) => !s)}>
-              {show ? <EyeOff size={20} /> : <Eye size={20} />}
+              {show ? (
+                <EyeOff size={20} color={iconColor} />
+              ) : (
+                <Eye size={20} color={iconColor} />
+              )}
             </TouchableOpacity>
           </View>
 
@@ -50,17 +69,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 52,
     borderWidth: 1,
-    borderColor: "#D0D0D0",
     borderRadius: 12,
     paddingHorizontal: 16,
-    backgroundColor: "#fff",
   },
   input: {
     flex: 1,
-    fontSize: 16,
-  },
-  errorBorder: {
-    borderColor: "#ff4d4d",
+    fontSize: 13,
+    fontFamily: "Inter_400Regular",
   },
   errorText: {
     color: "#ff4d4d",
