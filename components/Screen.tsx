@@ -53,7 +53,10 @@ export default function Screen({
         >
           <ScrollView
             style={{ flex: 1 }}
-            contentContainerStyle={[contentStyle, { paddingBottom: 100 }]}
+            contentContainerStyle={[
+              contentStyle,
+              { paddingBottom: insets.bottom + 100 },
+            ]}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
@@ -81,7 +84,9 @@ export default function Screen({
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <View style={[contentStyle, { flex: 1 }]}>{children}</View>
+        <View style={[contentStyle, { flex: 1, paddingBottom: insets.bottom }]}>
+          {children}
+        </View>
       </KeyboardAvoidingView>
 
       {footer && (

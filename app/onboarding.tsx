@@ -1,12 +1,11 @@
 import { onboardingData } from "@/utils/data";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Dimensions, FlatList, Image, StyleSheet, View } from "react-native";
 
 import { ThemedView } from "@/components/themed-view";
 import { Button } from "@/components/ui/Button";
 import { TextH1, TextP } from "@/components/ui/typography/Text";
 import { Colors } from "@/constants/theme";
-import * as Font from "expo-font";
 import { router } from "expo-router";
 
 const { width, height } = Dimensions.get("window");
@@ -35,19 +34,6 @@ export default function Onboarding() {
   };
 
   const currentItem = onboardingData[currentIndex];
-
-  useEffect(() => {
-    // This will show us what fonts are actually loaded
-    const checkFonts = async () => {
-      const nunitoLoaded = await Font.isLoaded("NunitoSans_700Bold");
-      const interLoaded = await Font.isLoaded("Inter_400Regular");
-
-      console.log("✅ NunitoSans_700Bold loaded:", nunitoLoaded);
-      console.log("✅ Inter_400Regular loaded:", interLoaded);
-    };
-
-    checkFonts();
-  }, []);
 
   return (
     <View style={styles.container} pointerEvents="box-none">
